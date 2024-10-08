@@ -1,0 +1,54 @@
+.post-container {
+  margin: 2em 3em;
+  padding: 0.6em 0.7em;
+  border-style: solid;
+  border-width: 0.5px;
+  border-radius: 0.5em;
+  border-color: var(--darker-secondary);
+  min-height: 140px;
+}
+
+h3 {
+  color: var(--darker-secondary);
+}
+
+.post-text {
+  color: var(--text-color);
+  display: flex;
+  justify-content: left;
+}
+
+.button-container {
+  display: flex;
+  justify-content: end;
+}
+
+.post-container button {
+  background-color: var(--secondary-color);
+  color: var(--base-color);
+  border-color: var(--secondary-color);
+  border-radius: 7px;
+  border-style: solid;
+  border-width: 0.4px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.button-container button:hover {
+  border-style: solid;
+  border-width: 0.4px;
+  border-color: var(--secondary-color);
+  background-color: var(--base-color);
+  color: var(--secondary-color);
+}
+
+.post-container button.delete:hover {
+  border-color: var(--delete-color);
+  color: var(--delete-color);
+}
+
+.edit,
+.delete {
+  margin: 8px;
+  padding: 0.4em 0.5em;
+}

@@ -1,0 +1,40 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 1.5em;
+  margin: 0 20px;
+}
+
+nav ul a {
+  padding: 7px 10px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: var(--darker-secondary);
+  display: inline;
+}
+
+nav ul a:hover {
+  /* background-color: var(--darker-base); */
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+nav button {
+  font-size: 15px;
+  padding: 0.5em 0.8em;
+  border-radius: 7px;
+  border: none;
+  background-color: var(--secondary-color);
+  color: var(--base-color);
+  font-weight: 600;
+}
+
+nav button:hover {
+  border-style: solid;
+  border-width: 0.4px;
+  border-color: var(--secondary-color);
+  background-color: var(--base-color);
+  color: var(--secondary-color);
+}

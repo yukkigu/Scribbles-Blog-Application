@@ -1,0 +1,109 @@
+button {
+  font-size: 15px;
+  padding: 0.5em 0.8em;
+  border-radius: 7px;
+  border: none;
+  background-color: var(--secondary-color);
+  color: var(--base-color);
+  font-weight: 600;
+}
+
+button:hover {
+  border-style: solid;
+  border-width: 0.4px;
+  border-color: var(--secondary-color);
+  background-color: var(--base-color);
+  color: var(--secondary-color);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modal-content {
+  background-color: var(--base-color);
+  padding: 3em 2em;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  resize: none;
+  min-height: 50px;
+  max-height: 25em;
+  min-width: 600px;
+  background-color: var(--darker-base);
+  border-color: var(--darker-secondary);
+  border-radius: 0.3em;
+  padding: 10px;
+  field-sizing: content;
+}
+
+textarea.post-content {
+  min-height: 100px;
+}
+
+.post-form textarea {
+  margin: 10px 0px;
+}
+
+.post-form p {
+  color: var(--text-color);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.post-form textarea:focus {
+  outline: none !important;
+  border: 3px solid var(--secondary-color);
+}
+
+.modal-info form {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-submit {
+  margin-top: 10px;
+  padding: 12px 0px;
+  border: 1px solid;
+}
+
+.modal-content .button-container {
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.warning-container button {
+  width: 70px;
+  height: 40px;
+}
+
+.confirm-delete {
+  border: 2px solid !important;
+  border-color: var(--delete-color) !important;
+  color: var(--delete-color) !important;
+  background-color: var(--base-color) !important;
+}
+
+.confirm-delete:hover {
+  background-color: var(--delete-color) !important;
+  color: var(--base-color) !important;
+}

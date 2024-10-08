@@ -1,0 +1,15 @@
+h1 {
+  color: var(--secondary-color);
+  font-weight: 600;
+  cursor: default;
+  display: flex;
+  justify-content: center;
+}
+
+.subtext {
+  color: var(--text-color);
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+  margin: 10px 4em;
+}

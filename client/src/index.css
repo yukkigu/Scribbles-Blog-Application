@@ -1,0 +1,28 @@
+:root {
+  --base-color: #2c394b;
+  --darker-base: #242f3f;
+  --lighter-base: rgb(56, 68, 90);
+  --secondary-color: #fca311;
+  --darker-secondary: #c0821e;
+  --text-color: #b2bccd;
+  --delete-color: #ff5a5f;
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: var(--base-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
