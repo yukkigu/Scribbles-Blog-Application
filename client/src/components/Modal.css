@@ -107,3 +107,20 @@ textarea.post-content {
   background-color: var(--delete-color) !important;
   color: var(--base-color) !important;
 }
+
+@media only screen and (max-width: 768px) {
+  .modal-content {
+    width: 85%;
+  }
+
+  textarea {
+    min-width: 100px;
+  }
+}
+
+@media only screen and (max-width: 384px) {
+  .close-button {
+    width: 75px;
+    height: 50%;
+  }
+}

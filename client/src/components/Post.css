@@ -16,6 +16,7 @@ h3 {
   color: var(--text-color);
   display: flex;
   justify-content: left;
+  white-space: pre-wrap;
 }
 
 .button-container {
@@ -51,4 +52,14 @@ h3 {
 .delete {
   margin: 8px;
   padding: 0.4em 0.5em;
+}
+
+@media only screen and (max-width: 768px) {
+  .post-container h3 {
+    font-size: 17px;
+  }
+
+  .post-container p {
+    font-size: 15px;
+  }
 }
