@@ -4,14 +4,14 @@ import "./Modal.css";
 function PostModal(props) {
   if (!props.isOpen) return null;
 
-  const [newPost, setNewPost] = useState({
+  const [editPost, setEditPost] = useState({
     title: "",
     content: "",
   });
 
   function onChange(event) {
     const { name, value } = event.target;
-    setNewPost((prevPost) => {
+    setEditPost((prevPost) => {
       return {
         ...prevPost,
         [name]: value,
@@ -20,8 +20,8 @@ function PostModal(props) {
   }
 
   function sendPost() {
-    console.log(newPost);
-    props.submitPost(newPost);
+    console.log(editPost);
+    props.submitPost(editPost);
     props.onClose();
   }
 
@@ -29,9 +29,9 @@ function PostModal(props) {
     <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-heading">
-          <h2>Create New Post</h2>
+          <h2>Editing Post</h2>
           <button className="close-button" onClick={props.onClose}>
-            Close
+            Cancel
           </button>
         </div>
         <div className="modal-info">
@@ -41,20 +41,18 @@ function PostModal(props) {
               className="post-title"
               placeholder="Enter title"
               name="title"
-              value={newPost.title}
+              value={editPost.title}
               onChange={onChange}></textarea>
             <p>Content</p>
             <textarea
               className="post-content"
               placeholder="Enter content"
               name="content"
-              value={newPost.content}
+              value={editPost.content}
               onChange={onChange}></textarea>
           </form>
         </div>
-        <button className="button post-submit" onClick={sendPost}>
-          Post
-        </button>
+        <button className="button post-submit">Save Changes</button>
       </div>
     </div>
   );

@@ -4,6 +4,11 @@ import "./Modal.css";
 function DeleteWarning(props) {
   if (!props.isOpen) return null;
 
+  function deletePost() {
+    props.deletePost(props.id);
+    props.onClose();
+  }
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -12,7 +17,9 @@ function DeleteWarning(props) {
           <button className="button" onClick={props.onClose}>
             No
           </button>
-          <button className="button confirm-delete">Yes</button>
+          <button className="button confirm-delete" onClick={deletePost}>
+            Yes
+          </button>
         </div>
       </div>
     </div>

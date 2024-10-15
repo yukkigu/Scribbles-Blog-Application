@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./NavBar.css";
 import PostModal from "./PostModal";
 
-function NavBar() {
+function NavBar(props) {
   const [createPostOpen, setCreatePostOpen] = useState(false);
 
   function handleOpen() {
@@ -22,7 +22,10 @@ function NavBar() {
       <button className="button" onClick={handleOpen}>
         New Post
       </button>
-      <PostModal isOpen={createPostOpen} onClose={handleClose} new={true}></PostModal>
+      <PostModal
+        isOpen={createPostOpen}
+        onClose={handleClose}
+        submitPost={props.submitPost}></PostModal>
     </nav>
   );
 }
