@@ -10,45 +10,45 @@ function App() {
   // // testing connection from client to server
   // const [fruitArr, setFruitArr] = useState([]);
 
-  // // receive data from server
-  // const fetchAPI = async () => {
-  //   const response = await axios.get("http://localhost:8080/api");
-  //   setFruitArr(response.data.fruits);
-  // };
-
-  // // send data to server
-  // const [data, setData] = useState("");
-
-  // function handleChange(event) {
-  //   console.log(event.target.value);
-  //   setData(event.target.value);
-  // }
-
-  // const sendData = async (event) => {
-  //   console.log("sending data... ", data);
-  //   try {
-  //     const response = await axios.post("http://localhost:8080/api/data", { data: data });
-  //     console.log("response from server: ", response.data.message);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchAPI();
-  // }, []);
+  const pathToServer = "http://localhost:8080";
 
   const [postArr, setPostArr] = useState([]);
-
-  function submitPost(post) {
-    console.log("submitting post...");
-    setPostArr((prevPosts) => {
-      return [...prevPosts, post];
-    });
+  // receive data from server
+  async function fetchPosts() {
+    console.log("Fetching posts...");
+    try {
+      const response = await axios.get(pathToServer + "/getPosts");
+      setPostArr(response.data);
+      console.log("response in fetch ", response.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  function deletePost(id) {
+  // Fetches posts from server when website first loads
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  // submits post into database and updates post in postArr
+  async function submitPost(post) {
+    console.log("submitting post...");
+    try {
+      const response = await axios.post(pathToServer + "/add", post);
+      console.log("response from server: ", response.data.message);
+      fetchPosts();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function deletePost(id) {
     console.log("deleting post... ", id);
+    try {
+      const response = await axios.post(pathToServer + `/delete/${id}`);
+    } catch (err) {
+      console.error(err);
+    }
     setPostArr((prevPosts) => {
       return prevPosts.filter((post, index) => {
         return index !== id;
@@ -64,18 +64,6 @@ function App() {
 
   return (
     <div>
-      {/* <div className="testing">
-        <input placeholder="enter text" value={data} onChange={handleChange}></input>
-        <button onClick={sendData}>Test</button>
-        {fruitArr.map((fruit, index) => {
-          return (
-            <div key={index}>
-              <p>{fruit}</p>
-            </div>
-          );
-        })}
-      </div> */}
-
       <NavBar submitPost={submitPost} />
       <Message />
       {postArr.map((post, index) => {

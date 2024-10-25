@@ -30,26 +30,91 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 
-async function getData() {
+async function getAllPosts() {
     const result = await db.query("SELECT * FROM posts");
-    console.log(result.rows);
+    console.log("backend: get post", result.rows);
+    return result.rows;
 }
 
-async function createNewPost() {
-
+async function createNewPost(data) {
+    const current_date = new Date();
+    console.log("adding new post with title: " + data.title + " and content: " + data.content);
+    try {
+        await db.query("INSERT INTO posts (title, content, date_posted) VALUES ($1, $2, $3)", [data.title, data.content, current_date])
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
-app.get("/api", (req, res) => {
-    res.json({ fruits: ["apple", "orange", "banana"] });
+async function deletePost(id) {
+    console.log("deleteing post with id " + id);
+    try {
+        await db.query("DELETE FROM posts WHERE id = $1", [id])
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+async function getSelectedPost(id) {
+    console.log("getting post with id " + id);
+    try {
+        await db.query("SELECT * FROM posts WHERE id = $1", [id])
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+// ================ CRUD OPERATIONs ================ //
+
+// READ: gets all posts
+app.get("/getPosts", async (req, res) => {
+    console.log("getting all posts");
+    try {
+        const results = await getAllPosts();
+        res.json(results);
+    }
+    catch (err) {
+        console.error("Error fetching posts: ", error);
+        res.status(500).json({ error: "Error fetching posts" });
+    }
+
 });
 
-app.post("/api/data", async (req, res) => {
+// CREATE: post into database
+app.post("/add", async (req, res) => {
+    console.log("in add...");
     const data = req.body;
     console.log(data);
-    res.json({ message: `Data received` });
+    try {
+        await createNewPost(data);
+        res.json({ message: `Post created successfully` });
+    }
+    catch (err) {
+        console.error("Error adding posts: ", error);
+        res.status(500).json({ error: "Error adding posts" });
+    }
+
 });
 
+// UPDATE: edits posts in database
+app.post("/edit/:id", async (req, res) => {
+    console.log("in edit...");
+    const data = req.body;
+    console.log(data)
+    await getData(data.id);
+});
+
+// DELETE: delete posts in database
+app.post("/delete/:id", async (req, res) => {
+    console.log("in edit...");
+    const data = req.body;
+    console.log(data)
+});
+
+
 app.listen(port, async () => {
-    await getData();
     console.log(`Server started on port ${port} at http://localhost:${port}`);
 })

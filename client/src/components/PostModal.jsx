@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./Modal.css";
 import axios from "axios";
 
-const pathToServer = "http://localhost:8080";
-
 function PostModal(props) {
   if (!props.isOpen) return null;
 
@@ -22,19 +20,9 @@ function PostModal(props) {
     });
   }
 
-  async function sendData(data) {
-    try {
-      const response = await axios.post(pathToServer + "/api/data", data);
-      console.log("response from server: ", response.data.message);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   async function sendPost() {
     console.log("In sendPost... \n post data: ", newPost);
     props.submitPost(newPost);
-    await sendData(newPost);
     props.onClose();
   }
 
