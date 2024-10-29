@@ -37,8 +37,11 @@ function Post(props) {
         </button>
         <EditPostModal
           id={props.id}
+          title={props.title}
+          content={props.content}
           isOpen={createPostOpen}
           onClose={closePost}
+          editPost={props.editPost}
           submitPost={props.submitPost}></EditPostModal>
         <button className="button delete" onClick={openWarning}>
           Delete

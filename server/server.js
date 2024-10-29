@@ -57,10 +57,13 @@ async function deletePost(id) {
     }
 }
 
-async function getSelectedPost(id) {
+async function editSelectedPost(data, id) {
     console.log("getting post with id " + id);
+    const current_date = new Date();
     try {
-        await db.query("SELECT * FROM posts WHERE id = $1", [id])
+        await db.query("UPDATE posts SET title = $1, content = $2, date_posted = $3, edited = $4 WHERE id = $5  ",
+            [data.title, data.content, current_date, true, id]
+        )
     }
     catch (err) {
         console.log(err);
@@ -80,7 +83,6 @@ app.get("/getPosts", async (req, res) => {
         console.error("Error fetching posts: ", error);
         res.status(500).json({ error: "Error fetching posts" });
     }
-
 });
 
 // CREATE: post into database
@@ -100,12 +102,20 @@ app.post("/add", async (req, res) => {
 });
 
 // UPDATE: edits posts in database
-// PUT bc only post title and content is updated
+// PATCH bc only post title and content is updated
 app.patch("/edit/:id", async (req, res) => {
-    console.log("in edit...");
+    console.log("backend: in edit...");
+    const id = req.params.id;
     const data = req.body;
-    console.log(data)
-    await getData(data.id);
+    console.log(id, data);
+    try {
+        const results = await editSelectedPost(data, id);
+        res.json(results);
+    }
+    catch (err) {
+        console.error("Error fetching posts: ", err);
+        res.status(500).json({ error: `Error fetching posts with id: ${id}` });
+    }
 });
 
 // DELETE: delete posts in database

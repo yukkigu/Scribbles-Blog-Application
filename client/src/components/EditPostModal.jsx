@@ -5,12 +5,14 @@ function PostModal(props) {
   if (!props.isOpen) return null;
 
   const [editPost, setEditPost] = useState({
-    title: "",
-    content: "",
+    title: props.title,
+    content: props.content,
   });
 
+  // console.log("testing: ", props.title, props.content);
   function onChange(event) {
     const { name, value } = event.target;
+    console.log(name, value);
     setEditPost((prevPost) => {
       return {
         ...prevPost,
@@ -19,9 +21,9 @@ function PostModal(props) {
     });
   }
 
-  function sendPost() {
-    console.log(editPost);
-    props.submitPost(editPost);
+  async function sendPost() {
+    console.log("testing", editPost);
+    props.editPost(editPost, props.id);
     props.onClose();
   }
 
@@ -52,7 +54,9 @@ function PostModal(props) {
               onChange={onChange}></textarea>
           </form>
         </div>
-        <button className="button post-submit">Save Changes</button>
+        <button className="button post-submit" onClick={sendPost}>
+          Save Changes
+        </button>
       </div>
     </div>
   );

@@ -16,7 +16,8 @@ function App() {
     console.log("Fetching posts...");
     try {
       const response = await axios.get(pathToServer + "/getPosts");
-      setPostArr(response.data);
+      // Sort by id in ascending order
+      setPostArr(response.data.sort((a, b) => a.id - b.id));
       console.log("response in fetch ", response.data);
     } catch (err) {
       console.log(err);
@@ -52,10 +53,16 @@ function App() {
     }
   }
 
-  function getPost(id) {
-    console.log("getting post with id ... ", id);
+  async function editPost(data, id) {
+    console.log("editing post with id ... ", id);
     console.log(postArr[id]);
-    return postArr[id];
+    try {
+      const response = await axios.patch(pathToServer + `/edit/${id}`, data);
+      console.log("response from server: ", response.data.message);
+      fetchPosts();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -69,6 +76,7 @@ function App() {
             id={post.id}
             title={post.title}
             content={post.content}
+            editPost={editPost}
             submitPost={submitPost}
             deletePost={deletePost}
           />
