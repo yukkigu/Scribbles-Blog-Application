@@ -21,7 +21,6 @@ function PostModal(props) {
   }
 
   async function sendPost() {
-    console.log("In sendPost... \n post data: ", newPost);
     props.submitPost(newPost);
     props.onClose();
   }

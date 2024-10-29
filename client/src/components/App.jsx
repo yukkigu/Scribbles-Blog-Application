@@ -18,7 +18,6 @@ function App() {
       const response = await axios.get(pathToServer + "/getPosts");
       // Sort by id in ascending order
       setPostArr(response.data.sort((a, b) => a.id - b.id));
-      console.log("response in fetch ", response.data);
     } catch (err) {
       console.log(err);
     }
@@ -43,7 +42,6 @@ function App() {
 
   // deletes post from database and updates posts in postArr
   async function deletePost(id) {
-    console.log("deleting post... ", id);
     try {
       const response = await axios.delete(pathToServer + `/delete/${id}`);
       console.log("response from server: ", response.data.message);
@@ -54,8 +52,6 @@ function App() {
   }
 
   async function editPost(data, id) {
-    console.log("editing post with id ... ", id);
-    console.log(postArr[id]);
     try {
       const response = await axios.patch(pathToServer + `/edit/${id}`, data);
       console.log("response from server: ", response.data.message);

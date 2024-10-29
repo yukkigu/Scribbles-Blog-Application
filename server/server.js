@@ -72,19 +72,6 @@ async function editSelectedPost(data, id) {
 
 // ================ CRUD OPERATIONs ================ //
 
-// READ: gets all posts
-app.get("/getPosts", async (req, res) => {
-    console.log("getting all posts");
-    try {
-        const results = await getAllPosts();
-        res.json(results);
-    }
-    catch (err) {
-        console.error("Error fetching posts: ", error);
-        res.status(500).json({ error: "Error fetching posts" });
-    }
-});
-
 // CREATE: post into database
 app.post("/add", async (req, res) => {
     console.log("in add...");
@@ -101,6 +88,19 @@ app.post("/add", async (req, res) => {
 
 });
 
+// READ: gets all posts
+app.get("/getPosts", async (req, res) => {
+    console.log("getting all posts");
+    try {
+        const results = await getAllPosts();
+        res.json(results);
+    }
+    catch (err) {
+        console.error("Error fetching posts: ", error);
+        res.status(500).json({ error: "Error fetching posts" });
+    }
+});
+
 // UPDATE: edits posts in database
 // PATCH bc only post title and content is updated
 app.patch("/edit/:id", async (req, res) => {
@@ -109,8 +109,8 @@ app.patch("/edit/:id", async (req, res) => {
     const data = req.body;
     console.log(id, data);
     try {
-        const results = await editSelectedPost(data, id);
-        res.json(results);
+        await editSelectedPost(data, id);
+        res.json({ message: `Successfully saved updated post` });
     }
     catch (err) {
         console.error("Error fetching posts: ", err);
@@ -124,7 +124,7 @@ app.delete("/delete/:id", async (req, res) => {
     console.log("backend: deleting post with id:", id);
     try {
         await deletePost(id);
-        res.json({ message: `Successfully deleted post with id: ${id}` });
+        res.json({ message: `Successfully deleted post` });
     }
     catch (err) {
         console.error("Error deleting posts: ", error);

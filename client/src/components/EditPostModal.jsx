@@ -12,7 +12,6 @@ function PostModal(props) {
   // console.log("testing: ", props.title, props.content);
   function onChange(event) {
     const { name, value } = event.target;
-    console.log(name, value);
     setEditPost((prevPost) => {
       return {
         ...prevPost,
@@ -22,7 +21,6 @@ function PostModal(props) {
   }
 
   async function sendPost() {
-    console.log("testing", editPost);
     props.editPost(editPost, props.id);
     props.onClose();
   }
