@@ -31,12 +31,18 @@ app.use(cors(corsOptions));
 
 
 async function getAllPosts() {
-    const result = await db.query("SELECT * FROM posts");
-    // console.log("backend: get post", result.rows);
-    return result.rows;
+    console.log("getting all posts");
+    try {
+        const result = await db.query("SELECT * FROM posts");
+        return result.rows;
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 async function createNewPost(data) {
+    console.log("creating new post");
     const current_date = new Date();
     try {
         await db.query("INSERT INTO posts (title, content, date_posted) VALUES ($1, $2, $3)", [data.title, data.content, current_date])
@@ -58,7 +64,7 @@ async function deletePost(id) {
 }
 
 async function editSelectedPost(data, id) {
-    console.log("getting post with id " + id);
+    console.log("editing post with id " + id);
     const current_date = new Date();
     try {
         await db.query("UPDATE posts SET title = $1, content = $2, date_posted = $3, edited = $4 WHERE id = $5  ",
@@ -74,9 +80,7 @@ async function editSelectedPost(data, id) {
 
 // CREATE: post into database
 app.post("/add", async (req, res) => {
-    console.log("in add...");
     const data = req.body;
-    console.log(data);
     try {
         await createNewPost(data);
         res.json({ message: `Post created successfully` });
@@ -90,7 +94,6 @@ app.post("/add", async (req, res) => {
 
 // READ: gets all posts
 app.get("/getPosts", async (req, res) => {
-    console.log("getting all posts");
     try {
         const results = await getAllPosts();
         res.json(results);
@@ -104,10 +107,8 @@ app.get("/getPosts", async (req, res) => {
 // UPDATE: edits posts in database
 // PATCH bc only post title and content is updated
 app.patch("/edit/:id", async (req, res) => {
-    console.log("backend: in edit...");
     const id = req.params.id;
     const data = req.body;
-    console.log(id, data);
     try {
         await editSelectedPost(data, id);
         res.json({ message: `Successfully saved updated post` });
@@ -128,7 +129,7 @@ app.delete("/delete/:id", async (req, res) => {
     }
     catch (err) {
         console.error("Error deleting posts: ", error);
-        res.status(500).json({ error: "Error deleting post" });
+        res.status(500).json({ error: "Error deleting post." });
     }
 });
 

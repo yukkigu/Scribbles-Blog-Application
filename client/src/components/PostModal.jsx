@@ -10,6 +10,11 @@ function PostModal(props) {
     content: "",
   });
 
+  const [placeholder, setPlaceholder] = useState({
+    title: "Enter title",
+    content: "Enter content",
+  });
+
   function onChange(event) {
     const { name, value } = event.target;
     setNewPost((prevPost) => {
@@ -21,8 +26,26 @@ function PostModal(props) {
   }
 
   async function sendPost() {
-    props.submitPost(newPost);
-    props.onClose();
+    if (newPost.title == "") {
+      console.log("title empty");
+      setPlaceholder({
+        title: "Title is empty. Please enter a title.",
+        content: "Enter content",
+      });
+    } else if (newPost.content == "") {
+      console.log("content empty");
+      setPlaceholder({
+        title: "Enter title",
+        content: "Content is empty. Please write post content.",
+      });
+    } else {
+      setPlaceholder({
+        title: "Enter title",
+        content: "Enter content",
+      });
+      props.submitPost(newPost);
+      props.onClose();
+    }
   }
 
   return (
@@ -39,14 +62,14 @@ function PostModal(props) {
             <p>Title</p>
             <textarea
               className="post-title"
-              placeholder="Enter title"
+              placeholder={placeholder.title}
               name="title"
               value={newPost.title}
               onChange={onChange}></textarea>
             <p>Content</p>
             <textarea
               className="post-content"
-              placeholder="Enter content"
+              placeholder={placeholder.content}
               name="content"
               value={newPost.content}
               onChange={onChange}></textarea>
