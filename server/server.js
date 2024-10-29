@@ -32,13 +32,12 @@ app.use(cors(corsOptions));
 
 async function getAllPosts() {
     const result = await db.query("SELECT * FROM posts");
-    console.log("backend: get post", result.rows);
+    // console.log("backend: get post", result.rows);
     return result.rows;
 }
 
 async function createNewPost(data) {
     const current_date = new Date();
-    console.log("adding new post with title: " + data.title + " and content: " + data.content);
     try {
         await db.query("INSERT INTO posts (title, content, date_posted) VALUES ($1, $2, $3)", [data.title, data.content, current_date])
     }
@@ -48,9 +47,10 @@ async function createNewPost(data) {
 }
 
 async function deletePost(id) {
-    console.log("deleteing post with id " + id);
+    console.log("deleting post with id " + id);
     try {
-        await db.query("DELETE FROM posts WHERE id = $1", [id])
+        await db.query("DELETE FROM posts WHERE id = $1", [id]);
+        console.log("successfully deleted post with id:", id)
     }
     catch (err) {
         console.log(err);
@@ -100,7 +100,8 @@ app.post("/add", async (req, res) => {
 });
 
 // UPDATE: edits posts in database
-app.post("/edit/:id", async (req, res) => {
+// PUT bc only post title and content is updated
+app.patch("/edit/:id", async (req, res) => {
     console.log("in edit...");
     const data = req.body;
     console.log(data)
@@ -108,10 +109,17 @@ app.post("/edit/:id", async (req, res) => {
 });
 
 // DELETE: delete posts in database
-app.post("/delete/:id", async (req, res) => {
-    console.log("in edit...");
-    const data = req.body;
-    console.log(data)
+app.delete("/delete/:id", async (req, res) => {
+    const id = req.params.id;
+    console.log("backend: deleting post with id:", id);
+    try {
+        await deletePost(id);
+        res.json({ message: `Successfully deleted post with id: ${id}` });
+    }
+    catch (err) {
+        console.error("Error deleting posts: ", error);
+        res.status(500).json({ error: "Error deleting post" });
+    }
 });
 
 
