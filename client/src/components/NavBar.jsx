@@ -19,7 +19,7 @@ function NavBar(props) {
         <a href="">Home</a>
         <a href="">About</a>
       </ul>
-      <button className="button" onClick={handleOpen}>
+      <button className="button new-post" aria-label="new" onClick={handleOpen}>
         New Post
       </button>
       <PostModal

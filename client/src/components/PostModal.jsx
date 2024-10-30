@@ -53,7 +53,7 @@ function PostModal(props) {
       <div className="modal-content">
         <div className="modal-heading">
           <h2>Create New Post</h2>
-          <button className="close-button" onClick={props.onClose}>
+          <button className="close-button" aria-label="close" onClick={props.onClose}>
             Close
           </button>
         </div>
@@ -62,6 +62,7 @@ function PostModal(props) {
             <p>Title</p>
             <textarea
               className="post-title"
+              aria-label="title"
               placeholder={placeholder.title}
               name="title"
               value={newPost.title}
@@ -69,13 +70,14 @@ function PostModal(props) {
             <p>Content</p>
             <textarea
               className="post-content"
+              aria-label="content"
               placeholder={placeholder.content}
               name="content"
               value={newPost.content}
               onChange={onChange}></textarea>
           </form>
         </div>
-        <button className="button post-submit" onClick={sendPost}>
+        <button className="button post-submit" aria-label="submit" onClick={sendPost}>
           Post
         </button>
       </div>
