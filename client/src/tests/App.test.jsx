@@ -68,28 +68,20 @@ describe("App Component", () => {
     expect(post1).toBeInTheDocument();
     expect(post2).toBeInTheDocument();
 
-    // check that axios is fetching data correctly
+    // checks that axios is fetching data correctly
     expect(axios.get).toHaveBeenCalledWith(pathToServer + "/getPosts");
   });
 
+  // checks that submit new post works properly
   it("submits new post", async () => {
-    // mocks successful post submission
-    axios.post.mockResolvedValue({
-      data: {
-        id: 3,
-        username: "user3",
-        title: "Testing Post 3",
-        content: "Testing Post Content 3",
-        date_posted: "2024-10-29",
-        edited: "false",
-      },
-    });
     await act(async () => {
       render(<App />);
     });
 
     // opens PostModal
     fireEvent.click(screen.getByRole("button", { name: "new" }));
+    // checks that modal is opened
+    expect(screen.getByText(/Create new post/i));
 
     // fills the form in PostModal
     fireEvent.change(screen.getByLabelText(/title/i), {
@@ -99,7 +91,27 @@ describe("App Component", () => {
       target: { value: "Testing Post Content 3" },
     });
 
+    // mocks successful post submission
+    axios.post.mockResolvedValueOnce({
+      data: {
+        id: 3,
+        username: "user3",
+        title: "Testing Post 3",
+        content: "Testing Post Content 3",
+        date_posted: "2024-10-29",
+        edited: "false",
+      },
+    });
+
     fireEvent.click(screen.getByRole("button", { name: "submit" }));
+    // checks that modal is closed
+    expect(screen.queryByText(/Create new post/i)).toBeNull();
+
+    // checks that axios is posting data correctly
+    expect(axios.post).toHaveBeenCalledWith(pathToServer + "/add", {
+      title: "Testing Post 3",
+      content: "Testing Post Content 3",
+    });
 
     // mocks fetching posts after submission
     axios.get.mockResolvedValueOnce({
@@ -131,7 +143,54 @@ describe("App Component", () => {
       ],
     });
 
-    const post3 = await screen.findByText(/Testing Post 3/i);
-    expect(post3).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/Testing Post 3/i)).toBeInTheDocument();
+      expect(screen.getByText(/Testing Post Content 3/i)).toBeInTheDocument();
+    });
+  });
+
+  // checks that delete post works properly
+  it("delete post", async () => {
+    await act(async () => {
+      render(<App />);
+    });
+
+    // opens DeleteWarning Modal for first post
+    fireEvent.click(screen.getAllByRole("button", { name: "delete" })[0]);
+    // checks that modal is opened
+    expect(screen.getByText(/Are you sure you want to delete this post?/i));
+
+    // mock axios delete response
+    axios.delete.mockResolvedValueOnce({ data: { message: "Post deleted successfully" } });
+
+    fireEvent.click(screen.getByText(/Yes/i));
+
+    // checks that axios.post is called with correct endpoint and id
+    expect(axios.delete).toHaveBeenCalledWith(pathToServer + "/delete/1");
+
+    // checks that modal is closed
+    expect(screen.queryByText(/Are you sure you want to delete this post?/i)).toBeNull();
+
+    // mocks fetching post after deleting
+    axios.get.mockResolvedValueOnce({
+      data: [
+        {
+          id: 2,
+          username: "user2",
+          title: "Testing Post 2",
+          content: "Testing Post Content 2",
+          date_posted: "2024-10-29",
+          edited: "true",
+        },
+      ],
+    });
+
+    // Wait for the state to update and ensure that the post is deleted
+    await waitFor(() => {
+      // check that the deleted post is no longer in the document
+      expect(screen.queryByText(/Testing Post 1/i)).toBeNull();
+      // checks that post 2 is still in the document
+      expect(screen.getByText(/Testing Post 2/i)).toBeInTheDocument();
+    });
   });
 });

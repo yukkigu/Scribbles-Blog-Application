@@ -32,7 +32,7 @@ function Post(props) {
         {props.content}
       </p>
       <div className="button-container">
-        <button className="button edit" onClick={openPost}>
+        <button className="button edit" aria-label="edit" onClick={openPost}>
           Edit
         </button>
         <EditPostModal
@@ -43,7 +43,7 @@ function Post(props) {
           onClose={closePost}
           editPost={props.editPost}
           submitPost={props.submitPost}></EditPostModal>
-        <button className="button delete" onClick={openWarning}>
+        <button className="button delete" aria-label="delete" onClick={openWarning}>
           Delete
         </button>
         <DeleteWarning
