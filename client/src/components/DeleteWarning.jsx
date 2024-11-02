@@ -12,13 +12,14 @@ function DeleteWarning(props) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h3>Are you sure you want to delete this post?</h3>
+        <h3 className="delete-heading">Delete Post?</h3>
+        <p className="subtext delete-text">This action cannot be undone.</p>
         <div className="button-container warning-container">
           <button className="button" onClick={props.onClose}>
-            No
+            Cancel
           </button>
           <button className="button confirm-delete" onClick={deletePost}>
-            Yes
+            Delete
           </button>
         </div>
       </div>

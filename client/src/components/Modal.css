@@ -87,13 +87,19 @@ textarea.post-content {
 }
 
 .modal-content .button-container {
-  justify-content: space-around;
-  margin-top: 20px;
+  justify-content: right;
+  margin-top: 25px;
 }
 
 .warning-container button {
-  width: 70px;
-  height: 40px;
+  width: 75px;
+  height: 35px;
+  margin-bottom: -20px !important;
+}
+
+.delete-heading {
+  margin-top: -20px;
+  margin-bottom: 10px;
 }
 
 .confirm-delete {
@@ -101,11 +107,16 @@ textarea.post-content {
   border-color: var(--delete-color) !important;
   color: var(--delete-color) !important;
   background-color: var(--base-color) !important;
+  margin-left: 30px;
 }
 
 .confirm-delete:hover {
   background-color: var(--delete-color) !important;
   color: var(--base-color) !important;
+}
+
+.delete-text {
+  margin-left: 0px !important;
 }
 
 @media only screen and (max-width: 768px) {
