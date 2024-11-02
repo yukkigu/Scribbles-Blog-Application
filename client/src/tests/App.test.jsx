@@ -57,7 +57,7 @@ describe("App Component", () => {
     );
   });
 
-  // checks that fetch functionality works
+  // checks that fetch functionality works properly
   it("fetches and displays posts", async () => {
     render(<App />);
 
@@ -143,9 +143,14 @@ describe("App Component", () => {
       ],
     });
 
+    // Wait for the state to update and ensure that post 3 is added
     await waitFor(() => {
       expect(screen.getByText(/Testing Post 3/i)).toBeInTheDocument();
       expect(screen.getByText(/Testing Post Content 3/i)).toBeInTheDocument();
+
+      // checks that post 1 and 2 are still in the document
+      expect(screen.getByText(/Testing Post 1/i)).toBeInTheDocument();
+      expect(screen.getByText(/Testing Post 2/i)).toBeInTheDocument();
     });
   });
 
@@ -186,12 +191,95 @@ describe("App Component", () => {
       ],
     });
 
-    // Wait for the state to update and ensure that the post is deleted
+    // Wait for the state to update and ensure that post 1 is deleted
     await waitFor(() => {
       // check that the deleted post is no longer in the document
       expect(screen.queryByText(/Testing Post 1/i)).toBeNull();
       // checks that post 2 is still in the document
       expect(screen.getByText(/Testing Post 2/i)).toBeInTheDocument();
+    });
+  });
+
+  // checks that edit post works properly
+  it("edit post", async () => {
+    await act(async () => {
+      render(<App />);
+    });
+
+    // click edit button of first post
+    fireEvent.click(screen.getAllByRole("button", { name: "edit" })[0]);
+
+    // checks that edit modal is opened
+    expect(screen.getByText(/Editing Post/i)).toBeInTheDocument();
+
+    // checks that the post title and content is inputted
+    expect(screen.getAllByText(/Testing Post 1/i)[1]).toBeInTheDocument();
+    expect(screen.getAllByText(/Testing Post Content 1/i)[1]).toBeInTheDocument();
+
+    // changes title and content
+    fireEvent.change(screen.getByPlaceholderText(/Enter Title/i), {
+      target: { value: "Change Post Title 1" },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/Enter Content/i), {
+      target: { value: "Change Post Content 1" },
+    });
+
+    // mock axios update
+    axios.patch.mockResolvedValueOnce({
+      data: [
+        {
+          id: 1,
+          username: "user1",
+          title: "Change Post Title 1",
+          content: "Change Post Content 1",
+          date_posted: "2024-11-2",
+          edited: "true",
+        },
+        {
+          id: 2,
+          username: "user2",
+          title: "Testing Post 2",
+          content: "Testing Post Content 2",
+          date_posted: "2024-10-29",
+          edited: "true",
+        },
+      ],
+    });
+
+    // click save changes button to save
+    fireEvent.click(screen.getByText(/Save Changes/i));
+
+    // mocks fetching post after edit
+    axios.get.mockResolvedValueOnce({
+      data: [
+        {
+          id: 1,
+          username: "user1",
+          title: "Change Post Title 1",
+          content: "Change Post Content 1",
+          date_posted: "2024-11-2",
+          edited: "true",
+        },
+        {
+          id: 2,
+          username: "user2",
+          title: "Testing Post 2",
+          content: "Testing Post Content 2",
+          date_posted: "2024-10-29",
+          edited: "true",
+        },
+      ],
+    });
+
+    // Wait for the state to update and ensure that post 1 is edited
+    await waitFor(() => {
+      // checks that updated post values are shown
+      expect(screen.getByText(/Change Post Title 1/i)).toBeInTheDocument();
+      expect(screen.getByText(/Change Post Content 1/i)).toBeInTheDocument();
+
+      // checks that previous post values are not present
+      expect(screen.queryByText(/Testing Post 1/i)).toBeNull();
+      expect(screen.queryByText(/Testing Post Content 1/i)).toBeNull();
     });
   });
 });
