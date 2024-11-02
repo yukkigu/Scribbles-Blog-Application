@@ -155,21 +155,22 @@ describe("App Component", () => {
       render(<App />);
     });
 
-    // opens DeleteWarning Modal for first post
+    // opens DeleteWarning Modal for first post by clilcking "Delete" button
     fireEvent.click(screen.getAllByRole("button", { name: "delete" })[0]);
     // checks that modal is opened
-    expect(screen.getByText(/Are you sure you want to delete this post?/i));
+    expect(screen.getByText(/This action cannot be undone?/i));
 
     // mock axios delete response
     axios.delete.mockResolvedValueOnce({ data: { message: "Post deleted successfully" } });
 
-    fireEvent.click(screen.getByText(/Yes/i));
+    // Close modal
+    fireEvent.click(screen.getAllByRole("button", { name: /Delete/i })[1]);
 
     // checks that axios.post is called with correct endpoint and id
     expect(axios.delete).toHaveBeenCalledWith(pathToServer + "/delete/1");
 
     // checks that modal is closed
-    expect(screen.queryByText(/Are you sure you want to delete this post?/i)).toBeNull();
+    expect(screen.queryByText(/This action cannot be undone?/i)).toBeNull();
 
     // mocks fetching post after deleting
     axios.get.mockResolvedValueOnce({
