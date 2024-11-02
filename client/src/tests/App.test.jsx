@@ -7,6 +7,15 @@ const pathToServer = "http://localhost:8080";
 // mock axios
 vi.mock("axios");
 
+// helper function
+const renderApp = async () => {
+  // act() is needed because <App /> calls an async function fetchPosts()
+  // which updates the state of postArr
+  await act(async () => {
+    render(<App />);
+  });
+};
+
 describe("App Component", () => {
   // mocks posts to be returned when axios.get is called
   beforeEach(() => {
@@ -34,11 +43,7 @@ describe("App Component", () => {
 
   // checks that App, NavBar, and Message Components are rendered correctly
   it("renders the App component with NavBar and Message", async () => {
-    // act() is needed because <App /> calls an async function fetchPosts()
-    // which updates the state of postArr
-    await act(async () => {
-      render(<App />);
-    });
+    await renderApp();
 
     // NavBar renders
     expect(screen.getByRole("navigation")).toBeInTheDocument();
@@ -59,7 +64,7 @@ describe("App Component", () => {
 
   // checks that fetch functionality works properly
   it("fetches and displays posts", async () => {
-    render(<App />);
+    await renderApp();
 
     // wait for posts to be displayed
     const post1 = await screen.findByText(/Testing Post 1/i);
@@ -74,9 +79,7 @@ describe("App Component", () => {
 
   // checks that submit new post works properly
   it("submits new post", async () => {
-    await act(async () => {
-      render(<App />);
-    });
+    await renderApp();
 
     // opens PostModal
     fireEvent.click(screen.getByRole("button", { name: "new" }));
@@ -156,9 +159,7 @@ describe("App Component", () => {
 
   // checks that delete post works properly
   it("delete post", async () => {
-    await act(async () => {
-      render(<App />);
-    });
+    await renderApp();
 
     // opens DeleteWarning Modal for first post by clilcking "Delete" button
     fireEvent.click(screen.getAllByRole("button", { name: "delete" })[0]);
@@ -202,9 +203,7 @@ describe("App Component", () => {
 
   // checks that edit post works properly
   it("edit post", async () => {
-    await act(async () => {
-      render(<App />);
-    });
+    await renderApp();
 
     // click edit button of first post
     fireEvent.click(screen.getAllByRole("button", { name: "edit" })[0]);
