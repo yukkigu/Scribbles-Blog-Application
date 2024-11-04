@@ -95,16 +95,7 @@ describe("App Component", () => {
     });
 
     // mocks successful post submission
-    axios.post.mockResolvedValueOnce({
-      data: {
-        id: 3,
-        username: "user3",
-        title: "Testing Post 3",
-        content: "Testing Post Content 3",
-        date_posted: "2024-10-29",
-        edited: "false",
-      },
-    });
+    axios.post.mockResolvedValueOnce({ data: { message: "Post created successfully" } });
 
     fireEvent.click(screen.getByRole("button", { name: "submit" }));
     // checks that modal is closed
@@ -224,26 +215,7 @@ describe("App Component", () => {
     });
 
     // mock axios update
-    axios.patch.mockResolvedValueOnce({
-      data: [
-        {
-          id: 1,
-          username: "user1",
-          title: "Change Post Title 1",
-          content: "Change Post Content 1",
-          date_posted: "2024-11-2",
-          edited: "true",
-        },
-        {
-          id: 2,
-          username: "user2",
-          title: "Testing Post 2",
-          content: "Testing Post Content 2",
-          date_posted: "2024-10-29",
-          edited: "true",
-        },
-      ],
-    });
+    axios.patch.mockResolvedValueOnce({ data: { message: "Successfully saved updated post" } });
 
     // click save changes button to save
     fireEvent.click(screen.getByText(/Save Changes/i));
