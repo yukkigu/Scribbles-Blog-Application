@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Modal.css";
-import axios from "axios";
 
 function PostModal(props) {
   if (!props.isOpen) return null;
