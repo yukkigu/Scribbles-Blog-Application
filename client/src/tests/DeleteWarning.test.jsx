@@ -15,7 +15,7 @@ describe("Delete Warning Component", () => {
     expect(screen.getByText(/Delete Post?/)).toBeInTheDocument();
     expect(screen.getByText("This action cannot be undone.")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
-    expect(screen.getByLabelText("delete")).toBeInTheDocument();
+    expect(screen.getByLabelText("confirm-delete")).toBeInTheDocument();
   });
 
   // checks that deleteWarning modal is not rendered when isOpen is false
@@ -36,7 +36,7 @@ describe("Delete Warning Component", () => {
   // checks that post deletes correctly
   it("deletePost is triggered when 'Delete' button is clicked", () => {
     const { closeWarning, deletePost } = renderDeleteWarning();
-    fireEvent.click(screen.getByLabelText("delete"));
+    fireEvent.click(screen.getByLabelText("confirm-delete"));
 
     // checks that deletePost is called with correct id
     expect(deletePost).toHaveBeenCalledWith(1);

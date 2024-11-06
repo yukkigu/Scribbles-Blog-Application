@@ -18,7 +18,10 @@ function DeleteWarning(props) {
           <button className="button" onClick={props.onClose}>
             Cancel
           </button>
-          <button className="button confirm-delete" aria-label="delete" onClick={deletePost}>
+          <button
+            className="button confirm-delete"
+            aria-label="confirm-delete"
+            onClick={deletePost}>
             Delete
           </button>
         </div>
