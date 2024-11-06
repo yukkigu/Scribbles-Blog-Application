@@ -14,7 +14,6 @@ function PostModal(props) {
     content: "Enter content",
   });
 
-  // console.log("testing: ", props.title, props.content);
   function onChange(event) {
     const { name, value } = event.target;
     setEditPost((prevPost) => {
@@ -37,6 +36,10 @@ function PostModal(props) {
         content: "Content is empty. Please write post content.",
       });
     } else {
+      setPlaceholder({
+        title: "Enter title",
+        content: "Enter content",
+      });
       props.editPost(editPost, props.id);
       props.onClose();
     }
