@@ -32,7 +32,9 @@ nav button {
   font-size: 15px;
   padding: 0.5em 0.8em;
   border-radius: 7px;
-  border: none;
+  border-style: solid;
+  border-width: 0.4px;
+  border-color: var(--secondary-color);
   background-color: var(--secondary-color);
   color: var(--base-color);
   font-weight: 600;
@@ -53,4 +55,12 @@ nav button:hover {
 
 .new-post {
   margin-left: 20px;
+}
+
+.nav-icon {
+  color: var(--text-color);
+}
+
+.nav-icon:hover {
+  color: var(--secondary-color);
 }

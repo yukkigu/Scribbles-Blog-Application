@@ -45,6 +45,7 @@ button:hover {
 textarea {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 15px;
+  color: var(--text-color);
   resize: none;
   min-height: 50px;
   max-height: 25em;

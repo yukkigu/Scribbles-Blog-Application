@@ -6,7 +6,6 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 function NavBar(props) {
   const [createPostOpen, setCreatePostOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
 
   function handleOpen() {
     setCreatePostOpen(true);
@@ -17,10 +16,10 @@ function NavBar(props) {
   }
 
   function changeMode() {
-    if (darkMode) {
-      setDarkMode(false);
+    if (props.darkMode) {
+      props.setDarkMode(false);
     } else {
-      setDarkMode(true);
+      props.setDarkMode(true);
     }
   }
 
@@ -31,7 +30,11 @@ function NavBar(props) {
         <a href="">About</a>
       </ul>
       <div className="nav-container">
-        {darkMode ? <DarkModeIcon onClick={changeMode} /> : <LightModeIcon onClick={changeMode} />}
+        {props.darkMode ? (
+          <DarkModeIcon className="nav-icon dark-icon" onClick={changeMode} />
+        ) : (
+          <LightModeIcon className="nav-icon light-icon" onClick={changeMode} />
+        )}
         <button className="button new-post" aria-label="new" onClick={handleOpen}>
           New Post
         </button>
