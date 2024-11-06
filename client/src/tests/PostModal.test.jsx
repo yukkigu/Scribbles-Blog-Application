@@ -16,7 +16,7 @@ describe("Post Modal Component", () => {
     expect(screen.getByText(/Create New Post/i)).toBeInTheDocument();
   });
 
-  // checks that post modal is not rendered isOpen is false
+  // checks that post modal is not rendered when isOpen is false
   it("do not render modal when isOpen is false", () => {
     renderPostModal(false);
     expect(screen.queryByText(/Create New Post/i)).toBeNull();

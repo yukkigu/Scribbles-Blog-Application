@@ -26,7 +26,7 @@ describe("Edit Post Modal Component", () => {
     expect(screen.getByPlaceholderText(/Enter content/).value).toBe("Testing Post Content 1");
   });
 
-  // checks that edit post modal is not rendered isOpen is false
+  // checks that edit post modal is not rendered when isOpen is false
   it("do not render modal when isOpen is false", () => {
     renderEditPostModal(false);
     expect(screen.queryByText(/Editing Post/)).toBeNull();
