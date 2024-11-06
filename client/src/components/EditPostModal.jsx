@@ -59,6 +59,7 @@ function PostModal(props) {
             <p>Title</p>
             <textarea
               className="post-title"
+              aria-label="title"
               placeholder={placeholder.title}
               name="title"
               value={editPost.title}
@@ -66,13 +67,14 @@ function PostModal(props) {
             <p>Content</p>
             <textarea
               className="post-content"
+              aria-label="content"
               placeholder={placeholder.content}
               name="content"
               value={editPost.content}
               onChange={onChange}></textarea>
           </form>
         </div>
-        <button className="button post-submit" onClick={sendPost}>
+        <button className="button post-submit" aria-label="save" onClick={sendPost}>
           Save Changes
         </button>
       </div>

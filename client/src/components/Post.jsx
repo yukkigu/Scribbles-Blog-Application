@@ -41,8 +41,7 @@ function Post(props) {
           content={props.content}
           isOpen={createPostOpen}
           onClose={closePost}
-          editPost={props.editPost}
-          submitPost={props.submitPost}></EditPostModal>
+          editPost={props.editPost}></EditPostModal>
         <button className="button delete" aria-label="delete" onClick={openWarning}>
           Delete
         </button>
