@@ -73,7 +73,6 @@ function App() {
             title={post.title}
             content={post.content}
             editPost={editPost}
-            submitPost={submitPost}
             deletePost={deletePost}
           />
         );
