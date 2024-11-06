@@ -121,11 +121,15 @@ textarea.post-content {
 
 @media only screen and (max-width: 768px) {
   .modal-content {
-    width: 85%;
+    width: 80%;
   }
 
   textarea {
     min-width: 100px;
+  }
+
+  .delete-text {
+    margin: 0px !important;
   }
 }
 
@@ -133,5 +137,23 @@ textarea.post-content {
   .close-button {
     width: 75px;
     height: 50%;
+  }
+
+  .confirm-delete {
+    margin-left: 0px;
+    margin-top: 30px;
+  }
+
+  .modal-content .warning-container {
+    flex-direction: column;
+    height: 70px;
+  }
+
+  .warning-container button {
+    width: 100%;
+  }
+
+  .button-container {
+    flex-direction: column;
   }
 }
