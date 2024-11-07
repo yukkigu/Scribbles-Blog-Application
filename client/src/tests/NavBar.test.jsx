@@ -43,9 +43,10 @@ describe("Navigation Bar Component", () => {
 
   // checks that mode button changes mode of web page
   it("mode switches when dark/light icon is clicked", () => {
-    renderNavBar(true);
+    const { setDarkMode } = renderNavBar(true);
     expect(screen.getByLabelText(/dark-icon/)).toBeInTheDocument();
     fireEvent.click(screen.getByLabelText(/dark-icon/));
+    expect(setDarkMode).toHaveBeenCalledWith(false);
     // simulate change from dark mode to light mode
     renderNavBar(false);
     expect(screen.getByLabelText(/light-icon/)).toBeInTheDocument();
