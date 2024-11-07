@@ -49,6 +49,7 @@ describe("App Component", () => {
     expect(screen.getByRole("navigation")).toBeInTheDocument();
     expect(screen.getByText(/Home/i)).toBeInTheDocument();
     expect(screen.getByText(/About/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/dark-icon/)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "new" })).toBeInTheDocument();
 
     // Message renders
@@ -252,5 +253,17 @@ describe("App Component", () => {
       expect(screen.queryByText(/Testing Post 1/i)).toBeNull();
       expect(screen.queryByText(/Testing Post Content 1/i)).toBeNull();
     });
+  });
+
+  // checks that mode icon changes properly
+  it("icon switches between light and dark mode on click", async () => {
+    await renderApp();
+    expect(screen.getByLabelText(/dark-icon/)).toBeInTheDocument();
+    // click dark icon
+    fireEvent.click(screen.getByLabelText(/dark-icon/));
+    expect(screen.getByLabelText(/light-icon/)).toBeInTheDocument();
+    // click light icon
+    fireEvent.click(screen.getByLabelText(/light-icon/));
+    expect(screen.getByLabelText(/dark-icon/)).toBeInTheDocument();
   });
 });

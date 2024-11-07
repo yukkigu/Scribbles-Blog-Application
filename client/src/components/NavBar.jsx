@@ -31,9 +31,17 @@ function NavBar(props) {
       </ul>
       <div className="nav-container">
         {props.darkMode ? (
-          <DarkModeIcon className="nav-icon dark-icon" onClick={changeMode} />
+          <DarkModeIcon
+            className="nav-icon dark-icon"
+            aria-label="dark-icon"
+            onClick={changeMode}
+          />
         ) : (
-          <LightModeIcon className="nav-icon light-icon" onClick={changeMode} />
+          <LightModeIcon
+            className="nav-icon light-icon"
+            aria-label="light-icon"
+            onClick={changeMode}
+          />
         )}
         <button className="button new-post" aria-label="new" onClick={handleOpen}>
           New Post

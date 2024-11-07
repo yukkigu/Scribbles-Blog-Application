@@ -1,10 +1,12 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import NavBar from "../components/NavBar";
 
-const renderNavBar = () => {
+const renderNavBar = (darkMode = true) => {
   // mocks submitPost function
   const submitPost = vi.fn();
-  render(<NavBar submitPost={submitPost} />);
+  const setDarkMode = vi.fn();
+  render(<NavBar darkMode={darkMode} setDarkMode={setDarkMode} submitPost={submitPost} />);
+  return { darkMode, setDarkMode };
 };
 
 describe("Navigation Bar Component", () => {
@@ -37,5 +39,15 @@ describe("Navigation Bar Component", () => {
     fireEvent.click(screen.getByText(/Close/i));
     // checks that post modal is closed
     expect(screen.queryByText(/Create new post/i)).toBeNull();
+  });
+
+  // checks that mode button changes mode of web page
+  it("mode switches when dark/light icon is clicked", () => {
+    renderNavBar(true);
+    expect(screen.getByLabelText(/dark-icon/)).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText(/dark-icon/));
+    // simulate change from dark mode to light mode
+    renderNavBar(false);
+    expect(screen.getByLabelText(/light-icon/)).toBeInTheDocument();
   });
 });
