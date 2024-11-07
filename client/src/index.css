@@ -32,15 +32,15 @@ body {
 }
 
 body.light-mode {
-  --base-color: #ffffff;
-  --darker-base: #fbf4eb;
-  --lighter-base: rgb(255, 47, 47);
-  --secondary-color: #e4ac5e;
-  --darker-secondary: #ee982faf;
-  --text-color: #616161;
+  --base-color: #f3f3f3;
+  --darker-base: #e6e9ee;
+  --lighter-base: rgb(255, 181, 95);
+  --secondary-color: rgb(56, 68, 90);
+  --darker-secondary: #2c394b;
+  --text-color: #6c6c6c;
   --delete-color: #ff5a5f;
 
-  color: #bb7825af;
+  color: rgb(56, 68, 90);
   color-scheme: dark light;
   background-color: var(--base-color);
 }

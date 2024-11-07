@@ -58,9 +58,9 @@ nav button:hover {
 }
 
 .nav-icon {
-  color: var(--text-color);
+  color: var(--secondary-color);
 }
 
 .nav-icon:hover {
-  color: var(--secondary-color);
+  color: var(--lighter-base);
 }
