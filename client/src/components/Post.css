@@ -1,5 +1,5 @@
 .post-container {
-  margin: 2em 3em;
+  margin: 2em 10em;
   padding: 0.6em 0.7em;
   border-style: solid;
   border-width: 0.5px;
@@ -55,6 +55,9 @@ h3 {
 }
 
 @media only screen and (max-width: 768px) {
+  .post-container {
+    margin: 2em 3em;
+  }
   .post-container h3 {
     font-size: 17px;
   }
