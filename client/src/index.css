@@ -40,6 +40,7 @@ body.light-mode {
   --text-color: #6c6c6c;
   --delete-color: #ff5a5f;
 
+  height: 100vh;
   color: rgb(56, 68, 90);
   color-scheme: dark light;
   background-color: var(--base-color);
