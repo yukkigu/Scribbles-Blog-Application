@@ -14,7 +14,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: var(--base-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -29,6 +28,7 @@
 
 body {
   padding: 90px 0px;
+  background-color: var(--base-color);
 }
 
 body.light-mode {
