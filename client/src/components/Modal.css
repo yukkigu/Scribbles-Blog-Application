@@ -54,7 +54,7 @@ textarea {
   border-color: var(--darker-secondary);
   border-radius: 0.3em;
   padding: 10px;
-  field-sizing: content;
+  field-sizing: fixed;
 }
 
 textarea.post-content {
