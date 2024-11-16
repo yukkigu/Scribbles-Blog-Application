@@ -31,6 +31,7 @@ body {
   background-color: var(--base-color);
 }
 
+/* Light mode */
 body.light-mode {
   --base-color: #f3f3f3;
   --darker-base: #e6e9ee;
@@ -43,4 +44,23 @@ body.light-mode {
   color: rgb(56, 68, 90);
   color-scheme: dark light;
   background-color: var(--base-color);
+}
+
+/* Scroll Bar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 4px;
+  background: var(--darker-base);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--darker-secondary);
 }
