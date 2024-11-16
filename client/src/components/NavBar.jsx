@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./NavBar.css";
+import { Link } from "react-router-dom";
+// import "./NavBar.css";
 import PostModal from "./PostModal";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -22,12 +23,17 @@ function NavBar(props) {
       props.setDarkMode(true);
     }
   }
+  console.log("HEREEEE", props.show);
 
   return (
     <nav className="nav-bar">
       <ul>
-        <a href="">Home</a>
-        <a href="">About</a>
+        <a>
+          <Link to="/"> Home</Link>
+        </a>
+        <a>
+          <Link to="/about">About</Link>
+        </a>
       </ul>
       <div className="nav-container">
         {props.darkMode ? (
@@ -43,9 +49,11 @@ function NavBar(props) {
             onClick={changeMode}
           />
         )}
-        <button className="button new-post" aria-label="new" onClick={handleOpen}>
-          New Post
-        </button>
+        {props.show && (
+          <button className="button new-post" aria-label="new" onClick={handleOpen}>
+            New Post
+          </button>
+        )}
         <PostModal
           isOpen={createPostOpen}
           onClose={handleClose}

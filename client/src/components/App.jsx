@@ -6,26 +6,10 @@ import NavBar from "./NavBar";
 import Message from "./Message";
 import Post from "./Post";
 
-function App() {
+function App({ darkMode, setDarkMode }) {
   const pathToServer = "http://localhost:8080";
 
   const [postArr, setPostArr] = useState([]);
-  // retrieve user preference from local storage
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem("darkMode");
-    return savedMode === "false" ? false : true;
-  });
-
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.remove("light-mode");
-    } else {
-      document.body.classList.add("light-mode");
-    }
-
-    // store user preferences in localStorage
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
 
   // receive data from server
   async function fetchPosts() {
@@ -79,7 +63,7 @@ function App() {
 
   return (
     <div>
-      <NavBar darkMode={darkMode} setDarkMode={setDarkMode} submitPost={submitPost} />
+      <NavBar darkMode={darkMode} setDarkMode={setDarkMode} submitPost={submitPost} show={true} />
       <Message />
       {postArr.map((post) => {
         return (
