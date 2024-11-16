@@ -9,15 +9,17 @@ const pathToServer = "http://localhost:8080";
 vi.mock("axios");
 
 // helper function
-const renderApp = async () => {
+const renderApp = async (darkMode = true) => {
   // act() is needed because <App /> calls an async function fetchPosts()
   // which updates the state of postArr
+  const setDarkMode = vi.fn();
   await act(async () => {
     render(
       <MemoryRouter>
-        <App />
+        <App darkMode={darkMode} setDarkMode={setDarkMode} />
       </MemoryRouter>
     );
+    // return { setDarkMode };
   });
 };
 
@@ -48,7 +50,7 @@ describe("App Component", () => {
 
   // checks that App, NavBar, and Message Components are rendered correctly
   it("renders the App component with NavBar and Message", async () => {
-    await renderApp();
+    await renderApp(true);
 
     // NavBar renders
     expect(screen.getByRole("navigation")).toBeInTheDocument();
@@ -75,7 +77,7 @@ describe("App Component", () => {
     // wait for posts to be displayed
     const post1 = await screen.findByText(/Testing Post 1/i);
     const post2 = await screen.findByText(/Testing Post 2/i);
-    screen.debug();
+
     expect(post1).toBeInTheDocument();
     expect(post2).toBeInTheDocument();
 
@@ -262,10 +264,12 @@ describe("App Component", () => {
 
   // checks that mode icon changes properly
   it("icon switches between light and dark mode on click", async () => {
-    await renderApp();
+    await renderApp(true);
     expect(screen.getByLabelText(/dark-icon/)).toBeInTheDocument();
     // click dark icon
     fireEvent.click(screen.getByLabelText(/dark-icon/));
+
+    await renderApp(false);
     expect(screen.getByLabelText(/light-icon/)).toBeInTheDocument();
     // click light icon
     fireEvent.click(screen.getByLabelText(/light-icon/));

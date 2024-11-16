@@ -23,13 +23,12 @@ function NavBar(props) {
       props.setDarkMode(true);
     }
   }
-  console.log("HEREEEE", props.show);
 
   return (
     <nav className="nav-bar">
       <ul>
         <a>
-          <Link to="/"> Home</Link>
+          <Link to="/home"> Home</Link>
         </a>
         <a>
           <Link to="/about">About</Link>

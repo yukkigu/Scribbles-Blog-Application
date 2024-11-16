@@ -1,14 +1,30 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
-const renderNavBar = (darkMode = true) => {
+const renderNavBar = (darkMode = true, route = "/home") => {
   // mocks submitPost function
   const submitPost = vi.fn();
   const setDarkMode = vi.fn();
   render(
-    <MemoryRouter>
-      <NavBar darkMode={darkMode} setDarkMode={setDarkMode} submitPost={submitPost} />
+    <MemoryRouter initialEntries={[route]}>
+      <Routes>
+        <Route
+          path="/home"
+          element={
+            <NavBar
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              submitPost={submitPost}
+              show={true}
+            />
+          }
+        />
+        <Route
+          path="/about"
+          element={<NavBar darkMode={darkMode} setDarkMode={setDarkMode} show={false} />}
+        />
+      </Routes>
     </MemoryRouter>
   );
   return { darkMode, setDarkMode };
@@ -55,5 +71,12 @@ describe("Navigation Bar Component", () => {
     // simulate change from dark mode to light mode
     renderNavBar(false);
     expect(screen.getByLabelText(/light-icon/)).toBeInTheDocument();
+  });
+
+  // Checks that 'New Post' button does not appear in /about page
+  it("does not render 'New Post' button on the about page", async () => {
+    renderNavBar(true, "/about");
+
+    expect(screen.queryByRole("button", { name: "new" })).toBeNull();
   });
 });
