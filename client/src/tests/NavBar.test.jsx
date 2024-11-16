@@ -1,11 +1,16 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 const renderNavBar = (darkMode = true) => {
   // mocks submitPost function
   const submitPost = vi.fn();
   const setDarkMode = vi.fn();
-  render(<NavBar darkMode={darkMode} setDarkMode={setDarkMode} submitPost={submitPost} />);
+  render(
+    <MemoryRouter>
+      <NavBar darkMode={darkMode} setDarkMode={setDarkMode} submitPost={submitPost} />
+    </MemoryRouter>
+  );
   return { darkMode, setDarkMode };
 };
 

@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import App from "../components/App";
 import axios from "axios";
 
@@ -12,7 +13,11 @@ const renderApp = async () => {
   // act() is needed because <App /> calls an async function fetchPosts()
   // which updates the state of postArr
   await act(async () => {
-    render(<App />);
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
   });
 };
 
@@ -70,7 +75,7 @@ describe("App Component", () => {
     // wait for posts to be displayed
     const post1 = await screen.findByText(/Testing Post 1/i);
     const post2 = await screen.findByText(/Testing Post 2/i);
-
+    screen.debug();
     expect(post1).toBeInTheDocument();
     expect(post2).toBeInTheDocument();
 

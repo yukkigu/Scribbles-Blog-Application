@@ -20,7 +20,6 @@ function Main() {
   });
   return (
     <>
-      {/* <NavBar darkMode={darkMode} setDarkMode={setDarkMode} /> */}
       <Routes>
         <Route path="/" element={<App darkMode={darkMode} setDarkMode={setDarkMode} />} />
         <Route path="/about" element={<About darkMode={darkMode} setDarkMode={setDarkMode} />} />
@@ -33,7 +32,6 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>
       <Main />
-      {/* <App /> */}
     </Router>
   </StrictMode>
 );
