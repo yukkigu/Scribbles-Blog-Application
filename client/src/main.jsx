@@ -21,7 +21,7 @@ function Main() {
   return (
     <>
       <Routes>
-        <Route path="/home" element={<App darkMode={darkMode} setDarkMode={setDarkMode} />} />
+        <Route path="/" element={<App darkMode={darkMode} setDarkMode={setDarkMode} />} />
         <Route path="/about" element={<About darkMode={darkMode} setDarkMode={setDarkMode} />} />
       </Routes>
     </>

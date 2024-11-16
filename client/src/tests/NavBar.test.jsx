@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
-const renderNavBar = (darkMode = true, route = "/home") => {
+const renderNavBar = (darkMode = true, route = "/") => {
   // mocks submitPost function
   const submitPost = vi.fn();
   const setDarkMode = vi.fn();
@@ -10,7 +10,7 @@ const renderNavBar = (darkMode = true, route = "/home") => {
     <MemoryRouter initialEntries={[route]}>
       <Routes>
         <Route
-          path="/home"
+          path="/"
           element={
             <NavBar
               darkMode={darkMode}
