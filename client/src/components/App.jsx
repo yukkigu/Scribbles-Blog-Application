@@ -6,7 +6,7 @@ import NavBar from "./NavBar";
 import Message from "./Message";
 import Post from "./Post";
 
-function App({ darkMode, setDarkMode }) {
+function App(props) {
   const pathToServer = "http://localhost:8080";
 
   const [postArr, setPostArr] = useState([]);
@@ -63,7 +63,12 @@ function App({ darkMode, setDarkMode }) {
 
   return (
     <div>
-      <NavBar darkMode={darkMode} setDarkMode={setDarkMode} submitPost={submitPost} show={true} />
+      <NavBar
+        darkMode={props.darkMode}
+        setDarkMode={props.setDarkMode}
+        submitPost={submitPost}
+        show={true}
+      />
       <Message />
       {postArr.map((post) => {
         return (
