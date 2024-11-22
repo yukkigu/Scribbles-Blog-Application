@@ -48,19 +48,32 @@ body.light-mode {
 
 /* Scroll Bar Customization */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
 }
 /* Track */
 ::-webkit-scrollbar-track {
   border-radius: 4px;
-  background: var(--darker-base);
 }
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--secondary-color);
-  border-radius: 4px;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--darker-secondary);
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-button:single-button {
+  display: block;
+  background-size: 10px;
+  background-repeat: no-repeat;
 }
