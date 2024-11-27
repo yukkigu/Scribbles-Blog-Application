@@ -28,7 +28,7 @@ function NavBar(props) {
     <nav className="nav-bar">
       <ul>
         <a>
-          <Link to="/home"> Home</Link>
+          <Link to="/"> Home</Link>
         </a>
         <a>
           <Link to="/about">About</Link>

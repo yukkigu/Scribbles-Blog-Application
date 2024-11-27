@@ -50,7 +50,7 @@ body.light-mode {
 ::-webkit-scrollbar {
   width: 15px;
   height: 15px;
-  background-color: transparent;
+  background-color: var(--darker-base);
 }
 /* Track */
 ::-webkit-scrollbar-track {
