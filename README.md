@@ -58,11 +58,13 @@ In pgAdmin:
 - To run the frontend:
   ```
   cd client
+  npm i 
   npm run dev
   ```
 - In the backend:
   ```
   cd server
+  npm i 
   npm run start
   ```
 - A link will be generated to localhost (ex: http://localhost:5173)
